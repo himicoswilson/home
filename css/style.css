@@ -1207,11 +1207,31 @@ section {
     }
 
     .album-card-wrapper {
-        height: 480px;
+        height: auto;
+        min-height: unset;
+    }
+
+    .album-card-3d {
+        display: grid;
+        height: auto;
+    }
+
+    .album-card {
+        grid-row: 1;
+        grid-column: 1;
+        position: relative;
+        height: auto;
+    }
+
+    .photo-container {
+        gap: var(--spacing-sm);
     }
 
     .album-photo {
-        height: 260px;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
     }
 
     .contact-links {
@@ -1295,11 +1315,15 @@ section {
     }
 
     .album-card-wrapper {
-        height: 450px;
+        height: auto;
+        min-height: unset;
     }
 
     .album-photo {
-        height: 240px;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
     }
 
     .skill-category {
