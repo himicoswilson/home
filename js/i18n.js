@@ -17,11 +17,18 @@ const translations = {
       backend: "后端",
       tools: "工具 & DevOps",
     },
+    albums: {
+      coverAlt: "专辑封面",
+      photoAlt: "个人照片",
+      imageError: "图片加载失败",
+      giftText: "硕硕送的礼物",
+    },
     music: {
       title: "我喜欢的音乐",
     },
     projects: {
       title: "项目",
+      viewProject: "查看项目",
     },
     contact: {
       title: "联系方式",
@@ -49,11 +56,18 @@ const translations = {
       backend: "Backend",
       tools: "Tools & DevOps",
     },
+    albums: {
+      coverAlt: "album cover",
+      photoAlt: "personal photo",
+      imageError: "Image failed to load",
+      giftText: "Gift from Shuoshuo",
+    },
     music: {
       title: "Music I Love",
     },
     projects: {
       title: "Projects",
+      viewProject: "View Project",
     },
     contact: {
       title: "Contact",
@@ -127,6 +141,10 @@ function toggleLanguage() {
 
   if (typeof renderProjects === "function") {
     renderProjects();
+  }
+
+  if (typeof renderAlbums === "function") {
+    renderAlbums();
   }
 }
 
