@@ -60,7 +60,7 @@ const translations = {
       coverAlt: "album cover",
       photoAlt: "personal photo",
       imageError: "Image failed to load",
-      giftText: "Gift from Shuoshuo",
+      giftText: "A gift from Shuoshuo",
     },
     music: {
       title: "Music I Love",
