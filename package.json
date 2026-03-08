@@ -1,0 +1,11 @@
+{
+  "name": "home",
+  "private": true,
+  "scripts": {
+    "check:i18n": "node ./scripts/check-i18n.js",
+    "build:images": "node ./scripts/build-images.js"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.4"
+  }
+}
