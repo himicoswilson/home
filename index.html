@@ -118,6 +118,70 @@
   }
   .masthead-nav a:hover { color: var(--rust); }
 
+  /* hamburger */
+  .masthead-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 0;
+    justify-self: end;
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    align-items: center;
+    gap: 8px;
+    transition: color 200ms ease;
+  }
+  .masthead-menu-btn:hover { color: var(--rust); }
+  .masthead-menu-btn .burger {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .masthead-menu-btn .burger span {
+    display: block; width: 18px; height: 1px;
+    background: currentColor;
+    transition: transform 200ms ease, opacity 200ms ease;
+  }
+  .masthead-menu-btn.open .burger span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+  .masthead-menu-btn.open .burger span:nth-child(2) { opacity: 0; }
+  .masthead-menu-btn.open .burger span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+  /* mobile nav drawer */
+  .masthead-drawer {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(242,234,215,0.98);
+    backdrop-filter: blur(10px) saturate(120%);
+    z-index: 19;
+    padding-top: 70px;
+    border-bottom: 1px solid var(--rule);
+    transform: translateY(-100%);
+    transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .masthead-drawer.open { transform: translateY(0); }
+  .masthead-drawer nav {
+    display: flex; flex-direction: column;
+    padding: 16px var(--gutter) 28px;
+  }
+  .masthead-drawer nav a {
+    display: flex; align-items: baseline; gap: 12px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    transition: color 200ms ease, padding-left 200ms ease;
+  }
+  .masthead-drawer nav a:last-child { border-bottom: none; }
+  .masthead-drawer nav a sup { color: var(--rust); font-size: 9px; }
+  .masthead-drawer nav a:hover { color: var(--rust); padding-left: 6px; }
+
   /* ───────────── HERO ───────────── */
   .hero {
     padding: 110px var(--gutter) 90px;
@@ -1207,6 +1271,9 @@
     :root { --gutter: 28px; }
     .masthead { grid-template-columns: 1fr auto; }
     .masthead-left { display: none; }
+    .masthead-nav { display: none; }
+    .masthead-menu-btn { display: flex; }
+    .masthead-drawer { display: block; }
     .hero { padding: 90px var(--gutter) 80px; }
     .hero-title { max-width: none; }
     .hero-deck { margin-left: 0; grid-template-columns: 1fr; }
@@ -1222,9 +1289,11 @@
     .note { grid-template-columns: 100px 1fr; }
     .note .dek, .note .read { display: none; }
     .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .contact h2 { font-size: clamp(34px, 8vw, 56px); }
+    .channel { grid-template-columns: 48px 1fr auto; gap: 14px; }
+    .channel .ch-handle { font-size: 16px; word-break: break-all; }
     .colophon { grid-template-columns: 1fr; }
     .colophon .center, .colophon .right { text-align: left; }
-    .channel { grid-template-columns: 60px 1fr auto; }
     .impact { grid-template-columns: 1fr; }
     .impact-label { writing-mode: horizontal-tb; transform: none; }
     .index-row { grid-template-columns: 40px 1fr 50px; }
@@ -1258,7 +1327,23 @@
     <a href="#music"><sup>05</sup>Music</a>
     <a href="#contact"><sup>06</sup>Contact</a>
   </nav>
+  <button class="masthead-menu-btn" aria-label="Toggle navigation" aria-expanded="false">
+    <div class="burger">
+      <span></span><span></span><span></span>
+    </div>
+  </button>
 </header>
+
+<div class="masthead-drawer" aria-hidden="true">
+  <nav>
+    <a href="#about"><sup>01</sup>About</a>
+    <a href="#work"><sup>02</sup>Work</a>
+    <a href="#catalogue"><sup>03</sup>Stack</a>
+    <a href="#timeline"><sup>04</sup>Path</a>
+    <a href="#music"><sup>05</sup>Music</a>
+    <a href="#contact"><sup>06</sup>Contact</a>
+  </nav>
+</div>
 
 <!-- ════════════════ HERO ════════════════ -->
 <section class="hero" id="top" data-screen-label="01 hero">
@@ -1827,6 +1912,26 @@
 </footer>
 
 <script>
+  // mobile nav toggle
+  const menuBtn = document.querySelector('.masthead-menu-btn');
+  const drawer = document.querySelector('.masthead-drawer');
+  menuBtn.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    menuBtn.classList.toggle('open', open);
+    menuBtn.setAttribute('aria-expanded', open);
+    drawer.setAttribute('aria-hidden', !open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  drawer.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      drawer.classList.remove('open');
+      menuBtn.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      drawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    });
+  });
+
   // very subtle reveal — only the things below the fold
   const io = new IntersectionObserver((entries) => {
     for (const e of entries) {
