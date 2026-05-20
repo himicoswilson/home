@@ -328,6 +328,7 @@
     border: 1px solid var(--rule);
     padding: 14px;
     position: relative;
+    overflow: hidden;
     box-shadow: 0 1px 0 var(--paper-deep) inset, 0 18px 30px -22px rgba(80,60,30,0.4);
   }
   .portrait-frame img {
@@ -1279,7 +1280,7 @@
     .hero-deck { margin-left: 0; grid-template-columns: 1fr; }
     .about { grid-template-columns: 1fr; }
     .about-portrait, .about-margin { position: static; }
-    .portrait-frame { max-width: 320px; }
+    .portrait-frame { max-width: 320px; overflow: hidden; }
     .project { grid-template-columns: 1fr; gap: 28px; }
     .project-figure { position: static; }
     .figure-frame { max-width: 420px; }
